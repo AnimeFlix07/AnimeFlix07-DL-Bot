@@ -22,7 +22,7 @@ class Bot(Client):
                 "root": "plugins"
             },
             workers=TG_BOT_WORKERS,
-            bot_token=TG_BOT_TOKEN
+            bot_token=BOT_TOKEN
         )
         self.LOGGER = LOGGER
 
@@ -33,17 +33,17 @@ class Bot(Client):
 
         if FORCE_SUB_CHANNEL:
             try:
-                link = (await self.get_chat(FORCE_SUB_CHANNEL1)).invite_link
+                link = (await self.get_chat(FORCE_SUB_CHANNEL)).invite_link
                 if not link:
-                    await self.export_chat_invite_link(FORCE_SUB_CHANNEL1)
-                    link = (await self.get_chat(FORCE_SUB_CHANNEL1)).invite_link
+                    await self.export_chat_invite_link(FORCE_SUB_CHANNEL)
+                    link = (await self.get_chat(FORCE_SUB_CHANNEL)).invite_link
                 self.invitelink = link
             except Exception as a:
                 self.LOGGER(__name__).warning(a)
                 self.LOGGER(__name__).warning(
                     "Bot can't Export Invite link from Force Sub Channel!")
                 self.LOGGER(__name__).warning(
-                    f"Please Double check the FORCE_SUB_CHANNEL_1 value and Make sure Bot is Admin in channel with Invite Users via Link Permission, Current Force Sub Channel Value: {FORCE_SUB_CHANNEL1}")
+                    f"Please Double check the FORCE_SUB_CHANNEL value and Make sure Bot is Admin in channel with Invite Users via Link Permission, Current Force Sub Channel Value: {FORCE_SUB_CHANNEL}")
                 self.LOGGER(__name__).info(
                     "\nBot Stopped. Contact @iTz_Anayokoji for support")
                 sys.exit()
